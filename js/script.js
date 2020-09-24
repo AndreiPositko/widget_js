@@ -41,7 +41,7 @@ function createWidget() {
 
     //features > h1
     const h1Features = createElement('h1', 'day_name');
-    h1Features.innerHTML = currentDay();
+    h1Features.innerHTML = getCurrentDay();
     featuresDiv.prepend(h1Features);
 
     //features > ul
@@ -79,39 +79,34 @@ function createWidget() {
         fetch(url)
             .then(function(response) {
                 return response.json();
+                // console.log(response);
             })
             .then(function(data) {
-                let html = [];
-                for (key in data) {
-                    console.log(data);
-                    console.log('Key', key);
-                    console.log('Value', data[key]);
+                console.log('Data json - ', data);
+                // h1City.innerHTML = data.timezone;
+                h1City.innerHTML = data.current.clouds;
+                
+                // for (let key in data) {
+                //     if (key == 'timezone') {
+                //         h1City.innerHTML = data[key];
+                //     }
+                //     console.log('Key - ', key);
+                // }
 
-                    html = data[key];
-                    console.log('html', html);
-
-                    // let htmlArray = html.map(function(item) {
-                    //     return `<li>` + item.clouds + ' ' + item.humidity + ' ' + item.temp + `</>`
-                    // })
-                    // console.log(htmlArray);
-                }
-                htmlArray = html.map(function(item) {
-                    return `<li>` + item.humidity + `</li>`;
-                    })
-                    
-                console.log(htmlArray);
-            
+                // let htmlArray = html.map(function(item) {
+                //     return `<li>` + item.clouds + ' ' + item.humidity + '% ' + ' ' + item.wind_speed + `</>`;
+                // });
+                // console.log(htmlArray.join(' '));   
             })
     }
 
     load();
 
-    function currentDay() {
+    function getCurrentDay() {
         let days =["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
         let nowDate = new Date();
-        // let nowDay = nowDate.getDay();
-        let nowDay = days[nowDate.getDay()]
+        let nowDay = days[nowDate.getDay()];
 
         console.log('Today', nowDay);
         return nowDay;    
